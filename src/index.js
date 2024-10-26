@@ -1,10 +1,12 @@
 import * as css from "./styles.css";
+import {storageAvailable} from "./storage.js";
 const left = document.querySelector(".left");
 const right = document.querySelector(".right");
 const menus = document.querySelector(".menus");
 const addProject = document.querySelector(".addProject");
 addProject.addEventListener("click", newProjectForm);
 
+storageAvailable();
 
 function createElement(elementType, attributes = {}, text = ""){
     const element = document.createElement(elementType);
@@ -15,12 +17,27 @@ function createElement(elementType, attributes = {}, text = ""){
     return element;
 }
 
+
+
+//Call current project
+function callProject(name){
+    const header = createElement("h3", {}, name.textContent);
+    right.appendChild(header);
+}
+
+//build a factory for the actual todo list
+function callTodo(name){
+
+}
+
 function newProject() {
-    event.preventDefault();
     const newProject = document.querySelector("#newProject").value;
-    const h3 = document.createElement("h3");
-    h3.textContent = newProject;
-    left.appendChild(h3);
+    const a = document.createElement("a");
+    a.textContent = newProject;
+    a.addEventListener("click", function(){
+        callProject(a);
+    })
+    left.appendChild(a);
 }
 
 function newProjectForm(){
