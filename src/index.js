@@ -3,37 +3,35 @@ const left = document.querySelector(".left");
 const right = document.querySelector(".right");
 const menus = document.querySelector(".menus");
 const addProject = document.querySelector(".addProject");
-//addProject.addEventListener("click", newProject);
+addProject.addEventListener("click", newProjectForm);
 
 
-function createElement(attributes){
-      console.log(attributes.name);
+function createElement(elementType, attributes = {}, text = ""){
+    const element = document.createElement(elementType);
+    Object.keys(attributes).forEach(key => element[key] = attributes[key]);
+    if(text != ""){
+        element.textContent = text;
+    }
+    return element;
 }
 
-createElement({name:"bib", age:"56",hobbies:["games","drugs","food"]})
+function newProject() {
+    event.preventDefault();
+    const newProject = document.querySelector("#newProject").value;
+    const h3 = document.createElement("h3");
+    h3.textContent = newProject;
+    left.appendChild(h3);
+}
 
+function newProjectForm(){
+    const form = createElement("form");
 
-/*function newProject(){
-    const newForm = document.createElement("form");
-    const label = document.createElement("label");
-    label.htmlFor = "projectName";
-    label.innerText = "Project Name:"
-    
-    const projectName = document.createElement("input");
-    projectName.type="text";
-    projectName.id = "projectName";
-    projectName.name = "projectName";
+    const label = createElement("label", {htmlFor: "newProject"}, "New Project Name:");
+    const input = createElement("input", {type: "text", id: "newProject", name: "newProject"});
+    const button = createElement("button",{type: "button"}, "Submit");
+    button.addEventListener("click", newProject);
 
-    const button = document.createElement("button");
-    button.type = "submit";
-    button.value = "Submit"
-    button.textContent = "Submit";
-
-    newForm.appendChild(label);
-    newForm.appendChild(projectName);
-    newForm.appendChild(button);
-    menus.appendChild(newForm);
-}*/
-
-
+    form.append(label, input, button);
+    left.appendChild(form);
+}
 
